@@ -1,9 +1,12 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.request.ItemSaveRequestDTO;
+import com.example.demo.dto.response.ItemGetResponseDTO;
 import com.example.demo.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author : K.M.G.I.K.konara
@@ -21,5 +24,12 @@ public class ItemController {
     public String saveItem(@RequestBody ItemSaveRequestDTO itemSaveRequestDTO){
         String message= itemService.saveItem(itemSaveRequestDTO);
         return "saved";
+    }
+
+    @GetMapping(path="/get-by-name",
+    params = "name")
+    public List<ItemGetResponseDTO> getItemByNameAndStatus(@RequestParam(value="name") String itemName){
+        List<ItemGetResponseDTO> itemDTOS =itemService.getItemByNameAndStatus(itemName);
+        return itemDTOS;
     }
 }

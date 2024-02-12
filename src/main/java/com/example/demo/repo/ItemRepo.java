@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author : K.M.G.I.K.konara
  * @Time :11:40 AM
@@ -13,4 +15,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 @EnableJpaRepositories
 public interface ItemRepo extends JpaRepository<Item,Integer> {
+    List<Item> findAllByItemNameEqualsAndActiveStateEquals(String itemName, boolean b);
 }

@@ -1,6 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.request.ItemSaveRequestDTO;
+import com.example.demo.dto.response.ItemGetResponseDTO;
+
+import java.util.List;
 
 /**
  * @author : K.M.G.I.K.konara
@@ -9,4 +12,6 @@ import com.example.demo.dto.request.ItemSaveRequestDTO;
  **/
 public interface ItemService {
     String saveItem(ItemSaveRequestDTO itemSaveRequestDTO);
+
+    List<ItemGetResponseDTO> getItemByNameAndStatus(String itemName);
 }
