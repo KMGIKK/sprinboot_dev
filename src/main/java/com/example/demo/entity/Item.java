@@ -2,6 +2,8 @@ package com.example.demo.entity;
 
 import com.example.demo.entity.enums.MeasuringUnitType;
 import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -11,6 +13,8 @@ import javax.persistence.*;
  * @since : 1/30/2024
  **/
 @AllArgsConstructor
+@NoArgsConstructor
+@Data
 
 @Entity
 @Table(name = "item")
