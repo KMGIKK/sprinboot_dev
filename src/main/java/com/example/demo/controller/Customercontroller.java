@@ -3,7 +3,10 @@ package com.example.demo.controller;
 import com.example.demo.dto.CustomerDTO;
 import com.example.demo.dto.request.CustomerUpdateDTO;
 import com.example.demo.service.CustomerService;
+import com.example.demo.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -43,9 +46,11 @@ public class Customercontroller {
     }
 
     @GetMapping(path ="get-all-customers")
-    public List<CustomerDTO> getAllCustomers(){
+    public ResponseEntity<StandardResponse> getAllCustomers(){
         List<CustomerDTO> allCustomers = customerService.getAllCustomers();
-        return allCustomers;
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200,"Success",allCustomers), HttpStatus.OK
+        );
     }
 
     @DeleteMapping(path="delete-customer/{id}")
