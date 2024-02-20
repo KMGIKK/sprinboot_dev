@@ -3,7 +3,10 @@ package com.example.demo.controller;
 import com.example.demo.dto.request.ItemSaveRequestDTO;
 import com.example.demo.dto.response.ItemGetResponseDTO;
 import com.example.demo.service.ItemService;
+import com.example.demo.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,9 +24,12 @@ public class ItemController {
     private ItemService itemService;
 
     @PostMapping(path={"/save"})
-    public String saveItem(@RequestBody ItemSaveRequestDTO itemSaveRequestDTO){
+    public ResponseEntity<StandardResponse> saveItem(@RequestBody ItemSaveRequestDTO itemSaveRequestDTO){
         String message= itemService.saveItem(itemSaveRequestDTO);
-        return "saved";
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(201,"Success",message),
+                HttpStatus.CREATED
+        );
     }
 
     @GetMapping(path="/get-by-name",
