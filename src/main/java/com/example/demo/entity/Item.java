@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * @author : K.M.G.I.K.konara
@@ -42,4 +43,7 @@ public class Item {
 
     @Column(name="active_state",columnDefinition = "TINYINT default 0")
     private boolean activeState;
+
+    @OneToMany(mappedBy = "items")
+    private Set<OrderDetails> orderDetails;
 }

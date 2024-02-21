@@ -10,6 +10,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * @author : K.M.G.I.K.konara
@@ -41,4 +42,7 @@ public class Orders {
 
     @Column(name="total",nullable = false)
     private Double total;
+
+    @OneToMany(mappedBy = "orders")
+    private Set<OrderDetails> orderDetails;
 }
