@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.paginated.PaginatedResponseOrderDetails;
 import com.example.demo.dto.request.RequestOrderSaveDTO;
 
 /**
@@ -9,4 +10,6 @@ import com.example.demo.dto.request.RequestOrderSaveDTO;
  **/
 public interface OrderService {
     String addOrder(RequestOrderSaveDTO requestOrderSaveDTO);
+
+    PaginatedResponseOrderDetails getAllOrderDetails(boolean status, int page, int size);
 }

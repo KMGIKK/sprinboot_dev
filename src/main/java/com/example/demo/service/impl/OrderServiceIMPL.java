@@ -1,6 +1,9 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.dto.paginated.PaginatedResponseOrderDetails;
+import com.example.demo.dto.queryInterfaces.OrderDetailInterface;
 import com.example.demo.dto.request.RequestOrderSaveDTO;
+import com.example.demo.dto.response.ResponseOrderDetailsDTO;
 import com.example.demo.entity.OrderDetails;
 import com.example.demo.entity.Orders;
 import com.example.demo.repo.CustomerRepo;
@@ -12,9 +15,11 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -61,5 +66,24 @@ public class OrderServiceIMPL implements OrderService {
             return "saved";
         }
         return null;
+    }
+
+    @Override
+    public PaginatedResponseOrderDetails getAllOrderDetails(boolean status, int page, int size) {
+        List<OrderDetailInterface> orderDetailsDTOS=orderRepo.getAllOrderDetails(status, PageRequest.of(page,size));
+        List<ResponseOrderDetailsDTO> list =new ArrayList<>();
+        for(OrderDetailInterface o: orderDetailsDTOS){
+            ResponseOrderDetailsDTO r =new ResponseOrderDetailsDTO(
+                    o.getCustomerName(),
+                    o.getCustomerAddress(),
+                    o.getContactNumber(),
+                    o.getDate(),
+                    o.getTotal()
+            );
+            list.add(r);
+        }
+        PaginatedResponseOrderDetails paginatedResponseOrderDetails=new PaginatedResponseOrderDetails(
+                list,orderRepo.countAllOrderDetails(status));
+        return paginatedResponseOrderDetails ;
     }
 }
