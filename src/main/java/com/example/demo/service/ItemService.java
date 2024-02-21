@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.paginated.PaginatedResponseItemDTO;
 import com.example.demo.dto.request.ItemSaveRequestDTO;
 import com.example.demo.dto.response.ItemGetResponseDTO;
 
@@ -18,4 +19,6 @@ public interface ItemService {
     List<ItemGetResponseDTO> getItemByNameAndStatusByMapStruct(String itemName);
 
     List<ItemGetResponseDTO> getItemByActiveStatus(boolean activeStatus);
+
+    PaginatedResponseItemDTO getItemByActiveStatusWithPaginated(boolean activeStatus, int page, int size);
 }

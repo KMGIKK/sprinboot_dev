@@ -3,6 +3,7 @@ package com.example.demo.util.mappers;
 import com.example.demo.dto.response.ItemGetResponseDTO;
 import com.example.demo.entity.Item;
 import org.mapstruct.Mapper;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface ItemMapper {
     List<ItemGetResponseDTO> entityListToDtoList(List<Item> items);
+
+    List<ItemGetResponseDTO> listDTOToPage(Page<Item> items);
 }
