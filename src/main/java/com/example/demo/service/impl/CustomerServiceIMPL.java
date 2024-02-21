@@ -3,6 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.dto.CustomerDTO;
 import com.example.demo.dto.request.CustomerUpdateDTO;
 import com.example.demo.entity.Customer;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.repo.CustomerRepo;
 import com.example.demo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,21 +77,26 @@ public class CustomerServiceIMPL implements CustomerService {
     @Override
     public List<CustomerDTO> getAllCustomers() {
         List<Customer> getAllCustomers = customerRepo.findAll();
-        List<CustomerDTO> customerDTOList = new ArrayList<>();
+       if (getAllCustomers.size()>0){
+           List<CustomerDTO> customerDTOList = new ArrayList<>();
 
-        for(Customer customer: getAllCustomers){
-            CustomerDTO customerDTO = new CustomerDTO(
-                    customer.getCustomerId(),
-                    customer.getCustomerName(),
-                    customer.getCustomerAddress(),
-                    customer.getCustomerSalary(),
-                    customer.getContactNumber(),
-                    customer.getNic(),
-                    customer.isActive()
-            );
-            customerDTOList.add(customerDTO);
-        }
-        return customerDTOList;
+           for(Customer customer: getAllCustomers){
+               CustomerDTO customerDTO = new CustomerDTO(
+                       customer.getCustomerId(),
+                       customer.getCustomerName(),
+                       customer.getCustomerAddress(),
+                       customer.getCustomerSalary(),
+                       customer.getContactNumber(),
+                       customer.getNic(),
+                       customer.isActive()
+               );
+               customerDTOList.add(customerDTO);
+           }
+           return customerDTOList;
+       }
+       else {
+           throw new NotFoundException("No Costomer Found");
+       }
     }
 
     @Override
