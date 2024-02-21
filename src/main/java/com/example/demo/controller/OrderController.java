@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.request.RequestOrderSaveDTO;
+import com.example.demo.service.OrderService;
 import com.example.demo.util.StandardResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +18,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/order")
 public class OrderController {
 
-
+    @Autowired
+    private OrderService orderService;
     @PostMapping(path="/save")
     public ResponseEntity<StandardResponse> saveItem(@RequestBody RequestOrderSaveDTO requestOrderSaveDTO){
-        System.out.println(requestOrderSaveDTO);
+        String id=orderService.addOrder(requestOrderSaveDTO);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(201,"itemsave successfully",2),
+                new StandardResponse(201,id+"itemsave successfully",id),
                 HttpStatus.CREATED);
     }
 }
