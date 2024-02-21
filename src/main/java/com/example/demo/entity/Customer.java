@@ -2,14 +2,13 @@ package com.example.demo.entity;
 
 
 import com.vladmihalcea.hibernate.type.json.JsonType;
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
-import org.springframework.boot.autoconfigure.web.WebProperties;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * @author : K.M.G.I.K.konara
@@ -43,6 +42,9 @@ public class Customer {
     private String nic;
     @Column(name="active_state",columnDefinition = "TINYINT default 0")
     private boolean active;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<Orders> orders;
 
     public Customer() {
     }
