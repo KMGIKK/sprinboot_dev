@@ -105,4 +105,13 @@ public class ItemServiceIMPL implements ItemService {
         );
         return paginatedResponseItemDTO;
     }
+
+
+    @Override
+    public PaginatedResponseItemDTO getAllItemsByPaginated(int page, int size) {
+        Page<Item> getAllItemsByPaginated= itemRepo.findAll(PageRequest.of(page,size));
+        return new PaginatedResponseItemDTO(
+                itemMapper.listDTOToPage(getAllItemsByPaginated),itemRepo.count()
+        );
+    }
 }

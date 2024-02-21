@@ -21,4 +21,8 @@ public interface ItemService {
     List<ItemGetResponseDTO> getItemByActiveStatus(boolean activeStatus);
 
     PaginatedResponseItemDTO getItemByActiveStatusWithPaginated(boolean activeStatus, int page, int size);
+
+
+
+    PaginatedResponseItemDTO getAllItemsByPaginated(int page, int size);
 }

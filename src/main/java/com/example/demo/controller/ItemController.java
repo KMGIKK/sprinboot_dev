@@ -77,4 +77,22 @@ public class ItemController {
                 HttpStatus.OK
         );
     }
+
+
+    @GetMapping(
+            path="/get-all-items-by-paginated",
+            params={"page","size"}
+    )
+    public ResponseEntity<StandardResponse> getAllItemsByPaginated(
+            @RequestParam(value="page") int page,
+            @RequestParam(value="size") @Max(50)int size
+    ){
+
+        PaginatedResponseItemDTO paginatedResponseItemDTO=itemService.getAllItemsByPaginated(page,size);
+
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200,"Success",paginatedResponseItemDTO),
+                HttpStatus.OK
+        );
+    }
 }
