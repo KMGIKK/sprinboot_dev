@@ -3,6 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.dto.request.ItemSaveRequestDTO;
 import com.example.demo.dto.response.ItemGetResponseDTO;
 import com.example.demo.entity.Item;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.repo.ItemRepo;
 import com.example.demo.service.ItemService;
 import com.example.demo.util.mappers.ItemMapper;
@@ -72,6 +73,17 @@ public class ItemServiceIMPL implements ItemService {
             return itemGetResponseDTOS;
         }else {
             throw new RuntimeException("Item is not active");
+        }
+    }
+
+    @Override
+    public List<ItemGetResponseDTO> getItemByActiveStatus(boolean activeStatus) {
+        List<Item> items=itemRepo.findAllByActiveStateEquals(activeStatus);
+        if(items.size()>0){
+            List<ItemGetResponseDTO> itemGetResponseDTOS=itemMapper.entityListToDtoList(items);
+            return itemGetResponseDTOS;
+        }else{
+            throw new NotFoundException("Item is Not Active");
         }
     }
 }
